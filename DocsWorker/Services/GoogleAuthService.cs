@@ -13,12 +13,11 @@ namespace DocsWorker.Services
 {
     public class GoogleAuthService
     {
-        public static UserCredential GetUserCredential()
+        public static UserCredential GetUserCredential(string userName)
         {
             var clientId = "562891167535-su3jddfdaijtp71vk51bgu4adjle8q10.apps.googleusercontent.com";
             var secret = "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";
             //var userName = Environment.UserName;
-            var userName = Environment.UserName + Guid.NewGuid().ToString();
 
             CancellationTokenSource cts = new CancellationTokenSource();
             cts.CancelAfter(TimeSpan.FromSeconds(30));

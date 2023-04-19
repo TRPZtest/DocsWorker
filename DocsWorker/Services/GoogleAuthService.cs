@@ -13,31 +13,37 @@ namespace DocsWorker.Services
 {
     public class GoogleAuthService
     {
-        public static UserCredential GetUserCredential(string userName)
+        public static UserCredential GetUserCredential(string userName, int timeout)
         {
-            var clientId = "562891167535-su3jddfdaijtp71vk51bgu4adjle8q10.apps.googleusercontent.com";
-            var secret = "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";
-            //var userName = Environment.UserName;
+            try
+            {
+                var clientId = "562891167535-su3jddfdaijtp71vk51bgu4adjle8q10.apps.googleusercontent.com";
+                var secret = "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";
+                //var userName = Environment.UserName;
 
-            CancellationTokenSource cts = new CancellationTokenSource();
-            cts.CancelAfter(TimeSpan.FromSeconds(30));
-            CancellationToken ct = cts.Token;
+                CancellationTokenSource cts = new CancellationTokenSource();
+                cts.CancelAfter(TimeSpan.FromSeconds(timeout));
+                CancellationToken ct = cts.Token;
 
-            string[] scopes = new string[] { DriveService.Scope.Drive,  };
+                string[] scopes = new string[] { DriveService.Scope.Drive, };
 
-            // Requesting Authentication or loading previously stored authentication for userName
-            var credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
-                new ClientSecrets { ClientId = clientId, ClientSecret = secret },
-                scopes,
-                userName,
-                ct
-            ).Result;
+                // Requesting Authentication or loading previously stored authentication for userName
+                var credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
+                    new ClientSecrets { ClientId = clientId, ClientSecret = secret },
+                    scopes,
+                    userName,
+                    ct
+                ).Result;
+          
+              
 
-            if (ct.IsCancellationRequested)
-                throw new Exception("Authentification error/timeout");
 
-            
-            return credential;
+                return credential;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Authentification error/timeout", ex);
+            }          
         }
     }
 }

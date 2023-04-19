@@ -6,8 +6,7 @@ namespace DocsWorker
     public class SynchronizerWorker : BackgroundService
     {
         const string SHEET_NAME = "List of files";
-        //const int TIME_MS = 1_000 * 5
-        const int TIME_MS = 1_000 * 60 * 15; //15 min
+        const int TIME_MS = 1_000 * 60 * 15;
 
         private readonly ILogger<SynchronizerWorker> _logger;
         private readonly string _userName;
@@ -28,7 +27,7 @@ namespace DocsWorker
                 {
                     _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
 
-                    var credential = GoogleAuthService.GetUserCredential(_userName, 5);
+                    var credential = GoogleAuthService.GetUserCredential(_userName, 120);
 
                     var sheetsService = new GoogleSheetsService(credential);
                     var driveService = new GoogleDriveService(credential);

@@ -13,7 +13,7 @@ namespace DocsWorker.Services
 {
     public class GoogleAuthService
     {
-        public static UserCredential GetUserCredential(string userName, int timeout)
+        public static UserCredential GetUserCredential(string userName, int timeoutSec)
         {
             try
             {
@@ -22,7 +22,7 @@ namespace DocsWorker.Services
                 //var userName = Environment.UserName;
 
                 CancellationTokenSource cts = new CancellationTokenSource();
-                cts.CancelAfter(TimeSpan.FromSeconds(timeout));
+                cts.CancelAfter(TimeSpan.FromSeconds(timeoutSec));
                 CancellationToken ct = cts.Token;
 
                 string[] scopes = new string[] { DriveService.Scope.Drive, };

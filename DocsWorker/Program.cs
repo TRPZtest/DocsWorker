@@ -3,7 +3,7 @@ using DocsWorker;
 IHost host = Host.CreateDefaultBuilder(args)
     .ConfigureServices(services =>
     {
-        services.AddHostedService<Worker>();
+        services.AddHostedService<SynchronizerWorker>();
     })
     .Build();
 

@@ -6,7 +6,7 @@ namespace DocsWorker
     public class SynchronizerWorker : BackgroundService
     {
         const string SHEET_NAME = "List of files";
-        const int TIME_MS = 1_000 * 15;
+        const int TIME_MS = 1_000 * 60 * 15;
 
         private readonly ILogger<SynchronizerWorker> _logger;
         private readonly string _userName;
